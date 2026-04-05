@@ -1,0 +1,17 @@
+.dieNumber {
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 0.75em;
+  background-color: var(--number-bg-colo);
+}
+
+.dieNumber.held.held {
+  background-color: var(--selected-number-bg-color);
+}
+
+@media (min-width: 500px) {
+  .dieNumber {
+    font-size: 1.2rem;
+    padding: 0.75em;
+  }
+}

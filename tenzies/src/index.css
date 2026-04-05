@@ -1,0 +1,70 @@
+/* =============== 
+RESET CSS
+================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =============== 
+CSS VARIABLES
+================== */
+:root {
+  /* Background Colors */
+  --body-bg-color: #0b2434;
+  --game-bg-color: #f5f5f5;
+  --btn-bg-color: #5035ff;
+  --number-bg-color: #ffffff;
+  --selected-number-bg-color: #59e391;
+
+  /* font colors */
+  --primary-text-color: #2b283a;
+  --secondary-text-color: #4a4e74;
+  --btn-font-color: #ffffff;
+}
+
+/* =============== 
+BASE STYLES
+================== */
+body {
+  font-family: "Karla", sans-serif;
+  line-height: 1.6;
+  font-size: 1rem;
+  background-color: var(--body-bg-color);
+  color: var(--primary-text-color);
+  padding: 1.25em;
+  min-height: 100vh;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* =============== 
+TYPOGRAPHY
+================== */
+h1 {
+  font-size: 1.8rem;
+  color: var(--primary-text-color);
+  font-weight: bold;
+}
+
+@media (min-width: 700px) {
+  html {
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 1000px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1400px) {
+  html {
+    font-size: 19px;
+  }
+}
