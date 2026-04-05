@@ -38,10 +38,9 @@ body {
   line-height: 1.6;
   background-color: var(--bg-color);
   color: var(--primary-font-color);
-}
-
-button {
-  font-family: inherit;
+  max-width: 1000px;
+  width: 95%;
+  margin: 0 auto;
 }
 
 button:hover {
@@ -54,5 +53,11 @@ TYPOGRAPHY
 h1 {
   color: var(--primary-font-color);
   font-family: "Karla" sans-serif;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: 1px;
 }
 
+button {
+  font-family: "Inter";
+}
