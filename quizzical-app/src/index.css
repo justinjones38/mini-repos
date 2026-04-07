@@ -17,7 +17,7 @@ CSS VARIABLES
   --btn-bg-color: #4d5b9e;
   --selected-btn-color: #d6dbf5;
   --correct-answer-bg-color: #94d7a2;
-  --unselected-answer-bg-color: rgba(248, 188, 188, 50%);
+  --wrong-answer-bg-color: rgba(248, 188, 188, 50%);
 
   /* Font colors */
   --primary-font-color: #293264;

@@ -64,7 +64,15 @@ export default function Quiz() {
     console.log("Too many requests");
   }
 
-
+  const labelStyle = (correctAnswer, guess) => {
+    if (isSubmitted && correctAnswer === guess) {
+      return `${styles["labelInput"]} ${styles["correct"]}`;
+    } else if (isSubmitted && correctAnswer !== guess) {
+      return `${styles["labelInput"]} ${styles["wrong"]}`;
+    } else {
+      return `${styles["labelInput"]}`;
+    }
+  };
 
   const quizData = quizQuestions.map((item) => (
     <fieldset className={styles.quizQuestion} key={item.question}>
@@ -72,7 +80,7 @@ export default function Quiz() {
       <div className={styles.answerContainer}>
         {item.answers.map((answer, index) => (
           <label
-            className={styles.labelInput}
+            className={labelStyle(item.correct_answer, answer)}
             key={index}
           >
             {answer}
@@ -96,11 +104,13 @@ export default function Quiz() {
       <form className={styles.quizForm} onSubmit={handleFormData}>
         {quizData}
         {!isSubmitted ? (
-          <Button
-            text="Submit Answers"
-            clickHand={handleFormData}
-            isHomeButton={false}
-          />
+          <div className={styles.btnContainer}>
+            <Button
+              text="Submit Answers"
+              clickHand={handleFormData}
+              isHomeButton={false}
+            />
+          </div>
         ) : null}
       </form>
     </div>
