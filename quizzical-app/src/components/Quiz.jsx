@@ -6,11 +6,21 @@ import { decode } from "html-entities";
 export default function Quiz() {
   const [quizQuestions, setQuizQuestions] = useState([]);
   const [error, setError] = useState(false);
+  const [quizAnswers, setQuizAnswers] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
+  // Form submit data
   const handleFormData = (event) => {
+    setIsSubmitted(true);
     event.preventDefault();
-    console.log(event);
   };
+
+  // Set up click event
+  const handleChange = (answer, question) =>
+    setQuizAnswers({
+      ...quizAnswers,
+      [question]: answer,
+    });
 
   const fetchData = async () => {
     try {
@@ -54,18 +64,26 @@ export default function Quiz() {
     console.log("Too many requests");
   }
 
+
+
   const quizData = quizQuestions.map((item) => (
     <fieldset className={styles.quizQuestion} key={item.question}>
       <p className={styles.title}>{item.question}</p>
       <div className={styles.answerContainer}>
         {item.answers.map((answer, index) => (
-          <label className={styles.labelInput} key={index}>
+          <label
+            className={styles.labelInput}
+            key={index}
+          >
             {answer}
             <input
               type="radio"
               value={answer}
               className={styles.radioInput}
               name={item.question}
+              checked={quizAnswers[item.question] === answer}
+              onChange={() => handleChange(answer, item.question)}
+              disabled={isSubmitted}
             />
           </label>
         ))}
@@ -77,11 +95,13 @@ export default function Quiz() {
     <div className={styles.quizContainer}>
       <form className={styles.quizForm} onSubmit={handleFormData}>
         {quizData}
-        <Button
-          text="Submit Answers"
-          clickHand={handleFormData}
-          isHomeButton={false}
-        />
+        {!isSubmitted ? (
+          <Button
+            text="Submit Answers"
+            clickHand={handleFormData}
+            isHomeButton={false}
+          />
+        ) : null}
       </form>
     </div>
   );
