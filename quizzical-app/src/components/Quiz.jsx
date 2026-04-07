@@ -22,12 +22,12 @@ export default function Quiz() {
       [question]: answer,
     });
 
-    const resetQuiz = () => {
-      setQuizQuestions([]);
-      setQuizAnswers({});
-      setIsSubmitted(false)
-      fetchData();
-    }
+  const resetQuiz = () => {
+    setQuizQuestions([]);
+    setQuizAnswers({});
+    setIsSubmitted(false);
+    fetchData();
+  };
 
   const fetchData = async () => {
     try {
@@ -73,25 +73,22 @@ export default function Quiz() {
     console.log("Too many requests");
   }
 
-  const labelStyle = (correctAnswer, guess) => {
-    if (isSubmitted && correctAnswer === guess) {
-      return `${styles["labelInput"]} ${styles["correct"]}`;
-    } else if (isSubmitted && correctAnswer !== guess) {
-      return `${styles["labelInput"]} ${styles["wrong"]}`;
-    } else {
-      return `${styles["labelInput"]}`;
-    }
-  };
+  // Checks styling of label
+  const labelStyle = (correctAnswer, guess) =>
+    correctAnswer === guess
+      ? `${styles["labelInput"]} ${styles["correct"]}`
+      : `${styles["labelInput"]} ${styles["wrong"]}`;
 
+  // Gets correct number of guess
   const correctGuesses = () => {
     let guess = 0;
-    quizQuestions.map(item => {
-      if(item.correct_answer === quizAnswers[item.question]) {
-        guess++
+    quizQuestions.map((item) => {
+      if (item.correct_answer === quizAnswers[item.question]) {
+        guess++;
       }
-    })
+    });
     return guess;
-  }
+  };
 
   const quizData = quizQuestions.map((item) => (
     <fieldset className={styles.quizQuestion} key={item.question}>
@@ -99,7 +96,11 @@ export default function Quiz() {
       <div className={styles.answerContainer}>
         {item.answers.map((answer, index) => (
           <label
-            className={labelStyle(item.correct_answer, answer)}
+            className={
+              isSubmitted
+                ? labelStyle(item.correct_answer, answer)
+                : styles["labelInput"]
+            }
             key={index}
           >
             {answer}
@@ -130,7 +131,9 @@ export default function Quiz() {
       </form>
       {isSubmitted && (
         <div className={styles.compContainer}>
-          <p className={styles.correctGuess}>You scored {correctGuesses()}/{quizQuestions.length} correct</p>
+          <p className={styles.correctGuess}>
+            You scored {correctGuesses()}/{quizQuestions.length} correct
+          </p>
           <Button
             text="retry quiz"
             clickHand={resetQuiz}
