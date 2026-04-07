@@ -1,0 +1,77 @@
+/* ==============
+RESET CSS
+================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ==============
+CSS VARIABLES
+================= */
+:root {
+  /* Background colors */
+  --bg-color: #f5f7fb;
+  --btn-bg-color: #4d5b9e;
+  --selected-btn-color: #d6dbf5;
+  --correct-answer-bg-color: #94d7a2;
+  --wrong-answer-bg-color: rgba(248, 188, 188, 50%);
+
+  /* Font colors */
+  --primary-font-color: #293264;
+  --btn-text-color: #f5f7fb;
+  --selected-text-color: #293264;
+
+  /* Border stylings */
+  --unselected-border-styling: 1px solid #4d5b9e;
+  --question-border-radius: 8px;
+  --question-dividing-border: 1px solid #dbdef0;
+}
+
+/* ==============
+BASE STYLES
+================= */
+body {
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
+  line-height: 1.6;
+  background-color: var(--bg-color);
+  color: var(--primary-font-color);
+  max-width: 1200px;
+  width: 95%;
+  margin: 0 auto;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+/* ==============
+TYPOGRAPHY
+================= */
+h1 {
+  color: var(--primary-font-color);
+  font-family: "Karla" sans-serif;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+button {
+  font-family: "Inter";
+}
+
+
+@media (min-width: 1000px) {
+  html {
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 1300px) {
+  html {
+    font-size: 18px;
+  }
+}
