@@ -35,7 +35,10 @@ export default function Quiz() {
         // Decoding necessary items for the quiz
         item.question = decode(item.question);
         item.correct_answer = decode(item.correct_answer);
-        item.incorrect_answers = item.incorrect_answers.map((answer) => decode(answer));
+        item.incorrect_answers.forEach((answer, index) => {
+          item.incorrect_answers[index] = decode(answer);
+        });
+
 
         item.answers = [item.correct_answer, ...item.incorrect_answers];
 
