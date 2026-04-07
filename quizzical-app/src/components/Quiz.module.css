@@ -56,3 +56,15 @@
   display: flex;
   justify-content: center;
 }
+
+.compContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75em;
+}
+
+.correctGuess {
+  font-size: 0.85rem;
+  font-weight: 600;
+}

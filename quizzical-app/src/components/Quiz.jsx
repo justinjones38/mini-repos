@@ -83,6 +83,16 @@ export default function Quiz() {
     }
   };
 
+  const correctGuesses = () => {
+    let guess = 0;
+    quizQuestions.map(item => {
+      if(item.correct_answer === quizAnswers[item.question]) {
+        guess++
+      }
+    })
+    return guess;
+  }
+
   const quizData = quizQuestions.map((item) => (
     <fieldset className={styles.quizQuestion} key={item.question}>
       <p className={styles.title}>{item.question}</p>
@@ -119,8 +129,8 @@ export default function Quiz() {
         )}
       </form>
       {isSubmitted && (
-        <div className={styles.comCpontainer}>
-          <p className={styles.count}>A number</p>
+        <div className={styles.compContainer}>
+          <p className={styles.correctGuess}>You scored {correctGuesses()}/{quizQuestions.length} correct</p>
           <Button
             text="retry quiz"
             clickHand={resetQuiz}
