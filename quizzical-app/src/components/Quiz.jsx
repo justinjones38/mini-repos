@@ -80,16 +80,12 @@ export default function Quiz() {
       : `${styles["labelInput"]} ${styles["wrong"]}`;
 
   // Gets correct number of guess
-  const correctGuesses = () => {
-    let guess = 0;
-    quizQuestions.map((item) => {
-      if (item.correct_answer === quizAnswers[item.question]) {
-        guess++;
-      }
-    });
-    return guess;
-  };
+  const correctGuesses = () =>
+    quizQuestions.filter(
+      (item) => item.correct_answer === quizAnswers[item.question],
+    ).length;
 
+  
   const quizData = quizQuestions.map((item) => (
     <fieldset className={styles.quizQuestion} key={item.question}>
       <p className={styles.title}>{item.question}</p>
