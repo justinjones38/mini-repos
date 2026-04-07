@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Button from "./Buttons/button";
 import styles from "./Quiz.module.css";
 import { decode } from "html-entities";
+import { shuffleArr } from "./utils/helper";
 
 export default function Quiz() {
   const [quizQuestions, setQuizQuestions] = useState([]);
@@ -29,6 +30,14 @@ export default function Quiz() {
     fetchData();
   };
 
+  const cleanUpData = (obj) => ({
+    ...obj,
+    question: decode(obj.question),
+    correct_answer: decode(obj.correct_answer),
+    incorrect_answers: obj.incorrect_answers.map(answer => decode(answer)),
+    answers: shuffleArr([obj.correct_answer, ...(obj.incorrect_answers.map(answer => decode(answer)))])
+  });
+
   const fetchData = async () => {
     try {
       const res = await fetch(`https://opentdb.com/api.php?amount=5`);
@@ -38,25 +47,8 @@ export default function Quiz() {
       }
 
       const data = await res.json();
-      const mappedData = data.results.map((item) => {
-        // Decoding necessary items for the quiz
-        item.question = decode(item.question);
-        item.correct_answer = decode(item.correct_answer);
-        item.incorrect_answers.forEach((answer, index) => {
-          item.incorrect_answers[index] = decode(answer);
-        });
+      const mappedData = data.results.map((item) => cleanUpData(item));
 
-        item.answers = [item.correct_answer, ...item.incorrect_answers];
-
-        for (let index = item.answers.length - 1; index > 0; index--) {
-          let randomIndex = Math.floor(Math.random() * index);
-          [item.answers[index], item.answers[randomIndex]] = [
-            item.answers[randomIndex],
-            item.answers[index],
-          ];
-        }
-        return item;
-      });
 
       setQuizQuestions(mappedData);
     } catch (err) {
@@ -70,7 +62,7 @@ export default function Quiz() {
   }, []);
 
   if (error) {
-    console.log("Too many requests");
+    console.error("Too many requests");
   }
 
   // Checks styling of label
@@ -85,7 +77,6 @@ export default function Quiz() {
       (item) => item.correct_answer === quizAnswers[item.question],
     ).length;
 
-  
   const quizData = quizQuestions.map((item) => (
     <fieldset className={styles.quizQuestion} key={item.question}>
       <p className={styles.title}>{item.question}</p>
@@ -97,7 +88,7 @@ export default function Quiz() {
                 ? labelStyle(item.correct_answer, answer)
                 : styles["labelInput"]
             }
-            key={index}
+            key={answer}
           >
             {answer}
             <input
