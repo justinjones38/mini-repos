@@ -6,6 +6,7 @@ import { shuffleArr } from "./utils/helper";
 
 export default function Quiz() {
   const [quizQuestions, setQuizQuestions] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false);
   const [quizAnswers, setQuizAnswers] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -40,6 +41,7 @@ export default function Quiz() {
 
   const fetchData = async () => {
     try {
+      setIsLoading(true);
       const res = await fetch(`https://opentdb.com/api.php?amount=5`);
 
       if (!res.ok) {
@@ -53,6 +55,8 @@ export default function Quiz() {
       setQuizQuestions(mappedData);
     } catch (err) {
       setError(true);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -112,7 +116,7 @@ export default function Quiz() {
         {quizData}
         {!isSubmitted && (
           <div className={styles.btnContainer}>
-            <Button text="Submit Answers" isHomeButton={false} />
+            {!isLoading && <Button text="Submit Answers" isHomeButton={false} />}
           </div>
         )}
       </form>

@@ -6,7 +6,6 @@ import Quiz from "./components/Quiz";
 
 export default function App() {
   const [gameStarted, setGameStarted] = useState(true);
-  console.log(gameStarted);
   const startGame = () => {
     setGameStarted(true);
   }
