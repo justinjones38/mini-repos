@@ -69,6 +69,10 @@ export default function Quiz() {
     console.error("Too many requests");
   }
 
+  if(isLoading) {
+    return <h1 style={{textAlign: "center"}}>Fetching Data</h1>
+  }
+
   // Checks styling of label
   const labelStyle = (correctAnswer, guess) =>
     correctAnswer === guess
