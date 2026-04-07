@@ -10,7 +10,7 @@ export default function Quiz() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   // Form submit data
-  const handleFormData = (event) => {
+  const submitForm = (event) => {
     setIsSubmitted(true);
     event.preventDefault();
   };
@@ -21,6 +21,13 @@ export default function Quiz() {
       ...quizAnswers,
       [question]: answer,
     });
+
+    const resetQuiz = () => {
+      setQuizQuestions([]);
+      setQuizAnswers({});
+      setIsSubmitted(false)
+      fetchData();
+    }
 
   const fetchData = async () => {
     try {
@@ -38,7 +45,6 @@ export default function Quiz() {
         item.incorrect_answers.forEach((answer, index) => {
           item.incorrect_answers[index] = decode(answer);
         });
-
 
         item.answers = [item.correct_answer, ...item.incorrect_answers];
 
@@ -104,18 +110,24 @@ export default function Quiz() {
 
   return (
     <div className={styles.quizContainer}>
-      <form className={styles.quizForm} onSubmit={handleFormData}>
+      <form className={styles.quizForm} onSubmit={submitForm}>
         {quizData}
-        {!isSubmitted ? (
+        {!isSubmitted && (
           <div className={styles.btnContainer}>
-            <Button
-              text="Submit Answers"
-              clickHand={handleFormData}
-              isHomeButton={false}
-            />
+            <Button text="Submit Answers" isHomeButton={false} />
           </div>
-        ) : null}
+        )}
       </form>
+      {isSubmitted && (
+        <div className={styles.comCpontainer}>
+          <p className={styles.count}>A number</p>
+          <Button
+            text="retry quiz"
+            clickHand={resetQuiz}
+            isHomeButton={false}
+          />
+        </div>
+      )}
     </div>
   );
 }
