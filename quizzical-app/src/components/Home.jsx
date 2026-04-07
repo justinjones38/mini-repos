@@ -6,7 +6,7 @@ export default function Home(props) {
         <div className={styles.homeContainer}>
             <h1 className={styles.title}>Quizzical</h1>
             <p className={styles.description}>A quiz about everything in the world</p>
-            <Button text="Start Quiz" startGame={props.startGame} isHomeButton={true} />
+            <Button text="Start Quiz" clickHand={props.startGame} isHomeButton={true} />
         </div>
     )
 }

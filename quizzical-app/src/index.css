@@ -16,17 +16,18 @@ CSS VARIABLES
   --bg-color: #f5f7fb;
   --btn-bg-color: #4d5b9e;
   --selected-btn-color: #d6dbf5;
+  --correct-answer-bg-color: #94d7a2;
+  --unselected-answer-bg-color: rgba(248, 188, 188, 50%);
 
   /* Font colors */
   --primary-font-color: #293264;
   --btn-text-color: #f5f7fb;
   --selected-text-color: #293264;
-  --correct-answer-bg-color: #94d7a2;
-  --unselected-answer-bg-color: rgba(248, 188, 188, 50%);
 
   /* Border stylings */
-  --unselected-border-styling: 2px solid #4d5b9e;
-  --unselected-border-radius: 8px;
+  --unselected-border-styling: 1px solid #4d5b9e;
+  --question-border-radius: 8px;
+  --question-dividing-border: 1px solid #dbdef0;
 }
 
 /* ==============
@@ -38,7 +39,7 @@ body {
   line-height: 1.6;
   background-color: var(--bg-color);
   color: var(--primary-font-color);
-  max-width: 1000px;
+  max-width: 1200px;
   width: 95%;
   margin: 0 auto;
 }
@@ -60,4 +61,17 @@ h1 {
 
 button {
   font-family: "Inter";
+}
+
+
+@media (min-width: 1000px) {
+  html {
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 1300px) {
+  html {
+    font-size: 18px;
+  }
 }

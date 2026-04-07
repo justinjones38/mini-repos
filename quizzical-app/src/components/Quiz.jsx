@@ -1,5 +1,88 @@
-import styles from "./Quiz.module.css"
+import { useState, useEffect } from "react";
+import Button from "./Buttons/button";
+import styles from "./Quiz.module.css";
+import { decode } from "html-entities";
 
-export default function Quiz(props) {
-    return <h1>test</h1>
+export default function Quiz() {
+  const [quizQuestions, setQuizQuestions] = useState([]);
+  const [error, setError] = useState(false);
+
+  const handleFormData = (event) => {
+    event.preventDefault();
+    console.log(event);
+  };
+
+  const fetchData = async () => {
+    try {
+      const res = await fetch(`https://opentdb.com/api.php?amount=5`);
+
+      if (!res.ok) {
+        throw new Error("Not found");
+      }
+
+      const data = await res.json();
+      const mappedData = data.results.map((item) => {
+        // Decoding necessary items for the quiz
+        item.question = decode(item.question);
+        item.correct_answer = decode(item.correct_answer);
+        item.incorrect_answers.forEach((answer) => decode(answer));
+
+        item.answers = [item.correct_answer, ...item.incorrect_answers];
+
+        for (let index = item.answers.length - 1; index > 0; index--) {
+          let randomIndex = Math.floor(Math.random() * index);
+          [item.answers[index], item.answers[randomIndex]] = [
+            item.answers[randomIndex],
+            item.answers[index],
+          ];
+        }
+        return item;
+      });
+
+      setQuizQuestions(mappedData);
+    } catch (err) {
+      setError(true);
+    }
+  };
+
+  // Initializing data
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (error) {
+    console.log("Too many requests");
+  }
+
+  const quizData = quizQuestions.map((item) => (
+    <fieldset className={styles.quizQuestion} key={item.question}>
+      <p className={styles.title}>{item.question}</p>
+      <div className={styles.answerContainer}>
+        {item.answers.map((answer, index) => (
+          <label className={styles.labelInput} key={index}>
+            {answer}
+            <input
+              type="radio"
+              value={answer}
+              className={styles.radioInput}
+              name={item.question}
+            />
+          </label>
+        ))}
+      </div>
+    </fieldset>
+  ));
+
+  return (
+    <div className={styles.quizContainer}>
+      <form className={styles.quizForm} onSubmit={handleFormData}>
+        {quizData}
+        <Button
+          text="Submit Answers"
+          clickHand={handleFormData}
+          isHomeButton={false}
+        />
+      </form>
+    </div>
+  );
 }
