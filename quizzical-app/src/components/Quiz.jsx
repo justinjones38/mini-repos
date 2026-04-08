@@ -6,7 +6,7 @@ import { shuffleArr } from "./utils/helper";
 
 export default function Quiz() {
   const [quizQuestions, setQuizQuestions] = useState([]);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [quizAnswers, setQuizAnswers] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -35,8 +35,11 @@ export default function Quiz() {
     ...obj,
     question: decode(obj.question),
     correct_answer: decode(obj.correct_answer),
-    incorrect_answers: obj.incorrect_answers.map(answer => decode(answer)),
-    answers: shuffleArr([obj.correct_answer, ...(obj.incorrect_answers.map(answer => decode(answer)))])
+    incorrect_answers: obj.incorrect_answers.map((answer) => decode(answer)),
+    answers: shuffleArr([
+      obj.correct_answer,
+      ...obj.incorrect_answers.map((answer) => decode(answer)),
+    ]),
   });
 
   const fetchData = async () => {
@@ -50,7 +53,6 @@ export default function Quiz() {
 
       const data = await res.json();
       const mappedData = data.results.map((item) => cleanUpData(item));
-
 
       setQuizQuestions(mappedData);
     } catch (err) {
@@ -69,8 +71,8 @@ export default function Quiz() {
     console.error("Too many requests");
   }
 
-  if(isLoading) {
-    return <h1 style={{textAlign: "center"}}>Fetching Data</h1>
+  if (isLoading) {
+    return <h1 style={{ textAlign: "center" }}>Fetching Data</h1>;
   }
 
   // Checks styling of label
@@ -120,7 +122,9 @@ export default function Quiz() {
         {quizData}
         {!isSubmitted && (
           <div className={styles.btnContainer}>
-            {!isLoading && <Button text="Submit Answers" isHomeButton={false} />}
+            {!isLoading && (
+              <Button text="Submit Answers" isHomeButton={false} />
+            )}
           </div>
         )}
       </form>

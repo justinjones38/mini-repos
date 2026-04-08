@@ -39,7 +39,7 @@ body {
   line-height: 1.6;
   background-color: var(--bg-color);
   color: var(--primary-font-color);
-  max-width: 1200px;
+  max-width: 1000px;
   width: 95%;
   margin: 0 auto;
 }
@@ -62,7 +62,6 @@ h1 {
 button {
   font-family: "Inter";
 }
-
 
 @media (min-width: 1000px) {
   html {
