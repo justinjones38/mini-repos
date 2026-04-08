@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Button from "./Buttons/button";
 import styles from "./Quiz.module.css";
 import { decode } from "html-entities";
-import { shuffleArr } from "./utils/helper";
+import { shuffleArr } from "../utils/helper";
 
 export default function Quiz() {
   const [quizQuestions, setQuizQuestions] = useState([]);
