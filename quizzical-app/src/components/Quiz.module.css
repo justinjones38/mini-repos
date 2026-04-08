@@ -17,12 +17,13 @@
 }
 
 .title {
+  font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.75em;
 }
 
 .labelInput {
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   padding: 0.5em 1em;
   border: var(--unselected-border-styling);
   margin-right: 1em;

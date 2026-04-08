@@ -6,6 +6,7 @@ import { shuffleArr } from "./utils/helper";
 
 export default function Quiz() {
   const [quizQuestions, setQuizQuestions] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [quizAnswers, setQuizAnswers] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -34,12 +35,16 @@ export default function Quiz() {
     ...obj,
     question: decode(obj.question),
     correct_answer: decode(obj.correct_answer),
-    incorrect_answers: obj.incorrect_answers.map(answer => decode(answer)),
-    answers: shuffleArr([obj.correct_answer, ...(obj.incorrect_answers.map(answer => decode(answer)))])
+    incorrect_answers: obj.incorrect_answers.map((answer) => decode(answer)),
+    answers: shuffleArr([
+      obj.correct_answer,
+      ...obj.incorrect_answers.map((answer) => decode(answer)),
+    ]),
   });
 
   const fetchData = async () => {
     try {
+      setIsLoading(true);
       const res = await fetch(`https://opentdb.com/api.php?amount=5`);
 
       if (!res.ok) {
@@ -49,10 +54,11 @@ export default function Quiz() {
       const data = await res.json();
       const mappedData = data.results.map((item) => cleanUpData(item));
 
-
       setQuizQuestions(mappedData);
     } catch (err) {
       setError(true);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -63,6 +69,10 @@ export default function Quiz() {
 
   if (error) {
     console.error("Too many requests");
+  }
+
+  if (isLoading) {
+    return <h1 style={{ textAlign: "center" }}>Fetching Data</h1>;
   }
 
   // Checks styling of label
@@ -112,7 +122,9 @@ export default function Quiz() {
         {quizData}
         {!isSubmitted && (
           <div className={styles.btnContainer}>
-            <Button text="Submit Answers" isHomeButton={false} />
+            {!isLoading && (
+              <Button text="Submit Answers" isHomeButton={false} />
+            )}
           </div>
         )}
       </form>

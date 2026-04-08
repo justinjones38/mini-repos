@@ -5,7 +5,9 @@ export default function Button(props) {
     <button
       onClick={props.clickHand}
       className={
-        props.isHomeButton ? `${styles.btn} ${styles.home}` : `${styles.btn} ${styles.quiz}`
+        props.isHomeButton
+          ? `${styles.btn} ${styles.home}`
+          : `${styles.btn} ${styles.quiz}`
       }
     >
       {props.text}
