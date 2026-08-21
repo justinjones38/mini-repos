@@ -16,15 +16,15 @@ This repository contains a lot of my smaller projects that I have completed.
  git clone https://github.com/yourusername/mini-repos.git
 ```
 
-2. Install dependencies:
-```bash
- npm install
- ```
 
  ## Usage
-To run the project, use the following command:
+To run a particular project, use the following command:
 ```bash
-npm start
+cd project
+
+npm install
+
+npm run dev
 ```
 
 ## Features
