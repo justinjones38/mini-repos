@@ -11,7 +11,7 @@ This repository contains a lot of my smaller projects that I have completed.
 - [Tenzies](/tenzies/README.md): Inspired by Scrimba's React Course, The basic tenzies game that allows users to click a button to get all matching numbers.
 
 ## Installation
-1. Clone the repository:
+Clone the repository:
 ```bash
  git clone https://github.com/yourusername/mini-repos.git
 ```
@@ -19,13 +19,22 @@ This repository contains a lot of my smaller projects that I have completed.
 
  ## Usage
 To run a particular project, use the following command:
+1. Enter the project's directory
 ```bash
 cd project
+```
 
+2. Install the dependencies for the project
+```bash
 npm install
+```
 
+3. Run the development server
+```bash
 npm run dev
 ```
+
+4. Enter the specified local host (ex. http://localhost:5173/)
 
 ## Features
 For each project, features are listed inside each particular project folder.
